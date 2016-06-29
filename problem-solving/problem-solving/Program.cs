@@ -34,9 +34,7 @@ namespace problem_solving
 
         public static IEnumerable<int> GetUniqueValues(IEnumerable<int> arr)
         {
-            // return an array that contains only unique values from the passed in array
-            // TODO
-            return new List<int>();
+            return arr.Distinct();
         }
 
         public static IEnumerable<int> GetArrayIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
