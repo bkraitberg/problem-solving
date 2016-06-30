@@ -199,6 +199,9 @@ namespace UnitTestProject1
         [TestCase("    ", "   ", false)]
         [TestCase("A", "A", true)]
         [TestCase("abcd", "abcd", true)]
+        [TestCase("abcd", "abcde", false)]
+        [TestCase("abcde", "abcd", false)]
+        [TestCase("abcde", "abcdd", false)]
         [TestCase("abcd", "dcab", true)]
         [TestCase("abcd", "dcababcd", false)]
         [TestCase("abcd", "efgh", false)]
@@ -207,6 +210,7 @@ namespace UnitTestProject1
         [TestCase(null, null, true, ExpectedException = typeof(NullReferenceException))]
         [TestCase("☺☺☺☺", "☺☺☺☺", true)]
         [TestCase("☺☺☺☺", "☺☺☺☺☺☺☺☺", false)]
+        [TestCase("\x0031\x0032\x0033\x0034", "4321", true)]
         public void Test_IsAnagram(String s1, String s2, bool result)
         {
             Assert.AreEqual(result, Program.IsAnagram(s1, s2));
@@ -281,6 +285,7 @@ namespace UnitTestProject1
         }
 
         [Test]
+        [TestCase(0, 1)]
         [TestCase(1, 1)]
         [TestCase(2, 2)]
         [TestCase(3, 6)]
