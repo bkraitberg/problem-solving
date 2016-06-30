@@ -13,22 +13,38 @@ namespace problem_solving
         {
         }
 
+        public static long Sum(IEnumerable<int> numbers)
+        {
+            int value = 0;
+            long sum = 0;
+            for (int i = 0; i < numbers.Count(); i++)
+            {
+                value = numbers.ElementAt(i);
+                sum = sum + value;
+
+            }
+            return sum;
+        }
         public static long SumArray(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array
             // TODO
-            int value = 0;
-            long sum = 0;
-            for (int i = 0; i < arr.Count(); i++)
-            {
-                value = arr.ElementAt(i);
-                sum = sum + value;
+            //int value = 0;
+            //long sum = 0;
+            //for (int i = 0; i < arr.Count(); i++)
+            //{
+            //    value = arr.ElementAt(i);
+            //    sum = sum + value;
 
-            }
+            //}
 
-                return sum;
+                return Sum(arr);
         }
 
+        public static bool IsOdd(int value)
+        {
+            return value % 2 != 0;
+        }
         public static long SumArrayOddValues(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array that are odd
@@ -38,31 +54,49 @@ namespace problem_solving
             for (int i = 0; i < arr.Count(); i++)
             {
                 value = arr.ElementAt(i);
+                if(IsOdd(value))
                 sum = sum + value;
 
             }
-            return 0;
+            return sum;
         }
 
         public static long SumArrayEverySecondValue(IEnumerable<int> arr)
         {
             // return the sum of every second value in the array. i.e. the 2nd value + the 4th value + the 6th value ...
             // TODO
-            return 0;
+            int value = 0;
+            long sum = 0;
+            int count = arr.Count();
+            for (int i = 0; i < count; i++)
+            {
+                if(i<=count-2)
+                {
+                    value = arr.ElementAt(++i);
+                    sum = sum + value;
+                }                
+
+            }
+            return sum;
+            
         }
 
         public static IEnumerable<int> GetUniqueValues(IEnumerable<int> arr)
         {
             // return an array that contains only unique values from the passed in array
             // TODO
-            return null;
+        
+
+
+            return arr.Distinct();
         }
 
         public static IEnumerable<int> GetArrayIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
             // return an array that contains all the values that are in array A and array B
             // TODO
-            return null;
+            
+            return arrA.Intersect(arrB);
         }
 
         public static IEnumerable<int> GetArrayNotIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
