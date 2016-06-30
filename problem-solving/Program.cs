@@ -16,49 +16,123 @@ namespace problem_solving
         public static long SumArray(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array
-            // TODO
-            return 0;
+            long sum = 0;
+
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            foreach (int arrInt in arr)
+            {
+                sum += arrInt;
+            }
+
+            return sum;
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array that are odd
-            // TODO
-            return 0;
+            long sum = 0;
+
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            foreach (int arrInt in arr)
+            {
+                if (arrInt % 2 != 0)
+                {
+                    sum += arrInt;
+                }
+            }
+
+            return sum;
         }
 
         public static long SumArrayEverySecondValue(IEnumerable<int> arr)
         {
             // return the sum of every second value in the array. i.e. the 2nd value + the 4th value + the 6th value ...
-            // TODO
-            return 0;
+            long sum = 0;
+
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            for (int i = 0; i < arr.Count(); i++)
+            {
+                if (i % 2 == 1)
+                {
+                    sum += arr.ElementAt(i);
+                }
+            }
+
+            return sum;
         }
 
         public static IEnumerable<int> GetUniqueValues(IEnumerable<int> arr)
         {
             // return an array that contains only unique values from the passed in array
-            // TODO
-            return null;
+            try
+            {
+                return arr.Distinct();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public static IEnumerable<int> GetArrayIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
             // return an array that contains all the values that are in array A and array B
-            // TODO
-            return null;
+            try
+            {
+                return arrA.Intersect(arrB);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public static IEnumerable<int> GetArrayNotIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
             // return an array that contains all the values that are in array A or array B but not in both array A and array B
-            // TODO
-            return null;
+            IEnumerable<int> returnArr;
+
+            try
+            {
+                returnArr = arrA.Except(arrB);
+
+                return returnArr.Union(arrB.Except(arrA));
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public static Boolean HasSum(IEnumerable<int> arr, long target)
         {
-            // return true if any 2 values in the array have a sum equal to the target value
-            // TODO
+            // return true if any 2 values in the array have a sum equal to the target value           
+            if (arr == null)
+            {
+                throw new NullReferenceException();
+            }
+            
+            for (int i = 0; i < arr.Count(); i++)
+            {
+                for (int j = i + 1; j < arr.Count(); j++)
+                {
+                    if (arr.ElementAt(i) + arr.ElementAt(j) == target)
+                        return true;
+                }
+            }
+
             return false;
         }
 
@@ -66,27 +140,86 @@ namespace problem_solving
         {
             // Given an array of int values, return their sum. 
             // However, if any of the values is the same as another of the values, it does not count towards the sum.
-            return 0;
+            List<int> distinctArr = new List<int>();
+            List<int> removedArr = new List<int>();
+
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            foreach (int intArr in arr)
+            {
+                if (!removedArr.Contains(intArr))
+                {
+                    if (distinctArr.Contains(intArr))
+                    {
+                        distinctArr.Remove(intArr);
+                        removedArr.Add(intArr);
+                    }
+                    else
+                    {
+                        distinctArr.Add(intArr);
+                    }
+                }
+            }
+
+            return SumArray(distinctArr);
         }
 
         public static String DoubleString(String s)
         {
             // return a string that is the original string with each character in the string repeated twice
             // e.g. for input "ABCDE", return "AABBCCDDEE"
-            return null;
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+            
+            string substr;
+            string doubledString = s;
+            
+            for (int i = 0; i < s.Length; i++)
+            {
+                substr = s.Substring(i, 1);
+                doubledString = doubledString.Insert(i * 2, substr);
+            }
+
+            return doubledString;
         }
 
         public static int CountChars(String s, char c)
         {
             // return the count of how many times char c occurs in string s
-            return 0;
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            IEnumerable<char> charArr = s.ToCharArray();
+
+            return charArr.Count(character => character == c);
         }
 
         public static long SumDigits(String s)
         {
             // return the sum of the digits 0-9 that appear in the string, ignoring all other characters
             // e.g. "123" return 6
-            return 0;
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            IEnumerable<char> charArr = s.ToCharArray();
+            IEnumerable<char> digitOnlyArr = charArr.Where(character => char.IsDigit(character));
+            List<int> digitList = new List<int>();
+
+            foreach (char digit in digitOnlyArr)
+            {
+                digitList.Add((int)Char.GetNumericValue(digit));
+            }
+
+            return SumArray(digitList);
         }
 
         public static long SumNumbers(String s)
@@ -94,7 +227,45 @@ namespace problem_solving
             // return the sum of the numbers that appear in the string, ignoring all other characters
             // a number is a series of 1 or more digits in a row
             // e.g. "11 22" returns 33
-            return 0;
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            int startChar = 0;
+            int numDigits = 1;
+            string number;
+            List<int> numbers = new List<int>();
+
+            while (startChar + numDigits <= s.Length)
+            {
+                int result;
+
+                number = s.Substring(startChar, numDigits);
+
+                int.TryParse(number, out result);
+
+                if (result > 0)
+                {
+                    numDigits++;
+                }
+                else
+                {
+                    number = s.Substring(startChar, numDigits - 1);
+                    
+                    int.TryParse(number, out result);
+
+                    if (result > 0)
+                    {
+                        numbers.Add(result);
+                    }
+
+                    startChar = startChar + numDigits;
+                    numDigits = 1;
+                }
+            }
+
+            return SumArray(numbers);
         }
 
         public static Boolean IsAnagram(String s1, String s2)
