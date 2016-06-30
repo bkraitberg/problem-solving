@@ -16,50 +16,54 @@ namespace problem_solving
         public static long SumArray(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array
-            // TODO
-            return 0;
+            long sum = 0;
+
+            for (int i = 0; i < arr.Count(); i++ )
+            {
+                sum += arr.ElementAt(i);
+            }
+
+            return sum;
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array that are odd
-            // TODO
-            return 0;
+            return SumArray(arr.Where(x => x % 2 != 0));
         }
 
         public static long SumArrayEverySecondValue(IEnumerable<int> arr)
         {
             // return the sum of every second value in the array. i.e. the 2nd value + the 4th value + the 6th value ...
-            // TODO
-            return 0;
+            return SumArray( arr.Where((x, index) => index % 2 != 0) );
         }
 
         public static IEnumerable<int> GetUniqueValues(IEnumerable<int> arr)
         {
             // return an array that contains only unique values from the passed in array
-            // TODO
-            return null;
+            return arr.Distinct();
         }
 
         public static IEnumerable<int> GetArrayIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
             // return an array that contains all the values that are in array A and array B
-            // TODO
-            return null;
+            return arrA.Intersect(arrB);
         }
 
         public static IEnumerable<int> GetArrayNotIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
             // return an array that contains all the values that are in array A or array B but not in both array A and array B
-            // TODO
-            return null;
+            return arrA.Where(x => !arrB.Contains(x)).Concat(arrB.Where(x => !arrA.Contains(x)));
         }
 
         public static Boolean HasSum(IEnumerable<int> arr, long target)
         {
             // return true if any 2 values in the array have a sum equal to the target value
-            // TODO
-            return false;
+
+            if (arr == null)
+                throw new NullReferenceException();
+
+            return arr.Where((x, index_of_x) => arr.Where((y, index_of_y) => (x + y == target) && (index_of_x != index_of_y)).Count() > 0).Count() > 0;
         }
 
         public static long LoneSum(IEnumerable<int> arr)
@@ -79,7 +83,7 @@ namespace problem_solving
         public static int CountChars(String s, char c)
         {
             // return the count of how many times char c occurs in string s
-            return 0;
+            return s.Where( value => value == c).Count();
         }
 
         public static long SumDigits(String s)
@@ -140,7 +144,10 @@ namespace problem_solving
         public static int Factorial(int n)
         {
             // Given n, return the factorial of n, which is n * (n-1) * (n-2) ... 1
-            return 0;
+            if (n == 1 || n == 0)
+                return 1;
+            else
+                return n * Factorial(n - 1);
         }
 
         public static List<String> FB(int n)
