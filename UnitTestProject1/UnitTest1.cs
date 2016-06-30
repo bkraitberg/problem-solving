@@ -101,7 +101,7 @@ namespace UnitTestProject1
         [TestCase(new int[] { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 }, 4, true)]
         [TestCase(new int[] { 0 }, 0, false)]
         [TestCase(new int[] { }, 1, false)]
-        [TestCase(null, null, null, ExpectedException = typeof(NullReferenceException))]
+        [TestCase(null, null, null, ExpectedException = typeof(ArgumentNullException))]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 6, true)]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 7, true)]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 8, true)]
@@ -275,7 +275,7 @@ namespace UnitTestProject1
             new TestCaseData(new List<String> { "dog", "cat", "cat", "dog", "DOG" }).Returns(new Dictionary<String, int>() { { "dog", 2 }, { "cat", 2 }, { "DOG", 1 } } ),
             new TestCaseData(new List<String> { "", "", String.Empty }).Returns(new Dictionary<String, int>() { { String.Empty, 3 } } ),
             new TestCaseData(new List<String> { "\0", "\0" }).Returns(new Dictionary<String, int>() { { "\0", 2 } } ),
-            new TestCaseData(null).Throws(typeof(NullReferenceException))
+            new TestCaseData(null).Throws(typeof(ArgumentNullException))
         };
 
         [Test, TestCaseSource("wordCountData")]
