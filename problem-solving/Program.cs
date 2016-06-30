@@ -9,84 +9,190 @@ namespace problem_solving
 {
     public class Program
     {
+
+
         static void Main(string[] args)
         {
+            
         }
 
         public static long SumArray(IEnumerable<int> arr)
         {
-            // return the sum of all the values in the array
-            // TODO
-            return 0;
+
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+            long result = arr.Sum();
+
+            return result;
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
         {
-            // return the sum of all the values in the array that are odd
-            // TODO
-            return 0;
+
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+            int[] arr1 = arr.ToArray();
+            long sum = 0;
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                if (arr1[i] % 2 == 1)
+                {
+                    sum += arr1[i];
+                }
+            }
+
+            return sum;
         }
 
         public static long SumArrayEverySecondValue(IEnumerable<int> arr)
         {
-            // return the sum of every second value in the array. i.e. the 2nd value + the 4th value + the 6th value ...
-            // TODO
-            return 0;
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            int[] arr1 = arr.ToArray();
+            long sum = 0;
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    sum += arr1[i];
+                }
+            }
+
+            return sum;
         }
 
         public static IEnumerable<int> GetUniqueValues(IEnumerable<int> arr)
         {
-            // return an array that contains only unique values from the passed in array
-            // TODO
-            return null;
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            int[] res = arr.Distinct().ToArray();
+
+            return res;
         }
 
         public static IEnumerable<int> GetArrayIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
-            // return an array that contains all the values that are in array A and array B
-            // TODO
-            return null;
+
+            if (arrA == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (arrB == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return arrA.Intersect(arrB);
         }
 
         public static IEnumerable<int> GetArrayNotIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
-            // return an array that contains all the values that are in array A or array B but not in both array A and array B
-            // TODO
-            return null;
+            if (arrA == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (arrB == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+
+            return (arrA.Except(arrB).Union(arrB.Except(arrA)));
         }
 
         public static Boolean HasSum(IEnumerable<int> arr, long target)
         {
-            // return true if any 2 values in the array have a sum equal to the target value
-            // TODO
+            if (arr == null)
+            {
+                throw new NullReferenceException();
+            }
+            int length = arr.Count();
+            for (int i = 0; i < length; i++)
+            {
+                for (int j = 0; j < length; j++)
+                {
+                    if (i != j && arr.ElementAt(i) + arr.ElementAt(j) == target)
+                    {
+                        return true;
+                    }
+                }
+            }
             return false;
         }
 
         public static long LoneSum(IEnumerable<int> arr)
         {
-            // Given an array of int values, return their sum. 
-            // However, if any of the values is the same as another of the values, it does not count towards the sum.
-            return 0;
+            if (arr == null)
+            {
+                throw new ArgumentNullException();
+            }
+            int[] x = arr.Distinct().ToArray();
+            long sum = x.Sum();
+
+            return sum;
         }
 
         public static String DoubleString(String s)
         {
-            // return a string that is the original string with each character in the string repeated twice
-            // e.g. for input "ABCDE", return "AABBCCDDEE"
-            return null;
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < s.Length; i++)
+            {
+                result.Append(s[i]);
+                result.Append(s[i]);
+            }
+            Console.WriteLine(result.ToString());
+            Console.ReadKey();
+            return result.ToString();
         }
 
         public static int CountChars(String s, char c)
         {
-            // return the count of how many times char c occurs in string s
-            return 0;
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+            int count = 0;
+            foreach (char schar in s.ToCharArray())
+            {
+                if (c == schar)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         public static long SumDigits(String s)
         {
-            // return the sum of the digits 0-9 that appear in the string, ignoring all other characters
-            // e.g. "123" return 6
-            return 0;
+            if (s == null)
+            {
+                throw new ArgumentNullException();
+            }
+            long sum = 0;
+            char[] chars = s.ToCharArray();
+            foreach (char ch in chars)
+            {
+                if (Char.IsDigit(ch))
+                {
+                    sum += (ch - '0');
+                }
+            }
+            return sum;
         }
 
         public static long SumNumbers(String s)
@@ -108,26 +214,69 @@ namespace problem_solving
 
         public static int BlackJack(int count1, int count2)
         {
-            // Given 2 integer values greater than 0, 
-            // return whichever value is nearest to 21 without going over. 
-            // Return 0 if they both go over.
-            return 0;
+            if (count1 > 21)
+            {
+                if (count2 > 21)
+                {
+                    return 0;
+                }
+                return count2;
+            }
+            if (count2 > 21)
+            {
+                return count1;
+            }
+            int result = Math.Max(count1, count2);
+            return result;
         }
 
         public static int FivePlayerBlackJack(int count1, int count2, int count3, int count4, int count5)
         {
-            // Given 5 integer values greater than 0, 
-            // return whichever value is nearest to 21 without going over. 
-            // Return 0 if they all go over.
-            return 0;
+            int lim = 21;
+            var valid = new List<int>();
+            if (count1 <= lim)
+            {
+                valid.Add(count1);
+            }
+            if (count2 <= lim)
+            {
+                valid.Add(count2);
+            }
+            if (count3 <= lim)
+            {
+                valid.Add(count3);
+            }
+            if (count4 <= lim)
+            {
+                valid.Add(count4);
+            }
+            if (count5 <= lim)
+            {
+                valid.Add(count5);
+            }
+            if (valid.Count == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return valid.Max();
+            }
         }
 
         public static int NPlayerBlackJack(IEnumerable<int> counts)
         {
-            // Given a list of integer values greater than 0, 
-            // return whichever value is nearest to 21 without going over. 
-            // Return 0 if they all go over.
-            return 0;
+            if (counts == null)
+            {
+                throw new ArgumentNullException();
+            }
+           var valid = counts.Where(c => c <= 21); 
+           if (valid.Any()) 
+             {
+     
+                return valid.Max(); 
+            } 
+           return 0;
         }
 
         public static Dictionary<String, int> WordCount(IEnumerable<String> arr)
@@ -139,17 +288,49 @@ namespace problem_solving
 
         public static int Factorial(int n)
         {
-            // Given n, return the factorial of n, which is n * (n-1) * (n-2) ... 1
-            return 0;
+            if (n < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (n == 0)
+            {
+                return 1;
+            }
+            int result = 1;
+            for (int i = 1; i <= n; ++i)
+            {
+                result = result * i;
+            }
+            return result;
+
         }
 
         public static List<String> FB(int n)
         {
-            // Given n, print the numbers from 1 to n as a string to a List of strings, with the following exceptions:
-            // If the number is divisable by 3, replace it with the word "Fizz"
-            // If the number is divisable by 5, replace it with the word "Buzz"
-            // If the number is divisable by both 3 and 5, replace it with the word "FizzBuzz"
-            return null;
+            List<string> result = new List<string>();
+
+
+            for (int i = 1; i <= n; i++)
+            {
+                if (i % 3 == 0 && i % 5 == 0)
+                {
+                    result.Add("FizzBuzz");
+                }
+                else if (i % 5 == 0)
+                {
+                    result.Add("Buzz");
+                }
+                else if (i % 3 == 0)
+                {
+                    result.Add("Fizz");
+                }
+                else
+                {
+                    result.Add(i.ToString());
+                }
+            }
+
+            return result;
         }
     }
 }
