@@ -223,7 +223,10 @@ namespace problem_solving
 
         public static int Factorial(int n)
         {
-<<<<<<< HEAD
+            if (n == 1)
+            {
+                return 1;
+            }
             int result =n;
 
             for (int i = 1; i < n; i++)
@@ -231,10 +234,7 @@ namespace problem_solving
                 result = result * i;
             }
             return result;
-=======
-            // Given n, return the factorial of n, which is n * (n-1) * (n-2) ... 1
-            return 0;
->>>>>>> refs/remotes/bkraitberg/master
+
         }
 
         public static List<String> FB(int n)
