@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+ 
 
 namespace problem_solving
 {
@@ -17,56 +18,127 @@ namespace problem_solving
         {
             // return the sum of all the values in the array
             // TODO
-            return 0;
+            long sum = 0; 
+            //return arr.Sum(); 
+            for (int i = 0; i <= arr.Count() - 1; i++ )
+            {
+                sum += arr.ElementAt(i);
+            }
+
+            return sum; 
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array that are odd
             // TODO
-            return 0;
+ 
+            int oddSum = 0;
+
+            for (int i = 0; i <= arr.Count() - 1; i++ )
+            {
+                if (arr.ElementAt(i) % 2 != 0)
+                    oddSum += arr.ElementAt(i); 
+            }
+            return oddSum;
         }
 
         public static long SumArrayEverySecondValue(IEnumerable<int> arr)
         {
             // return the sum of every second value in the array. i.e. the 2nd value + the 4th value + the 6th value ...
             // TODO
-            return 0;
+            int secondValueSum = 0; 
+            int[] intArray = new int[(arr.Count())]; 
+
+            intArray = arr.ToArray(); 
+
+            for (int arrayIndex = 1; arrayIndex <= arr.Count() - 1; arrayIndex += 2)
+            {
+                secondValueSum += intArray[arrayIndex]; 
+            }
+                return secondValueSum;
         }
 
         public static IEnumerable<int> GetUniqueValues(IEnumerable<int> arr)
         {
             // return an array that contains only unique values from the passed in array
             // TODO
-            return null;
+
+            return arr.Distinct();
         }
 
         public static IEnumerable<int> GetArrayIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
             // return an array that contains all the values that are in array A and array B
             // TODO
-            return null;
+
+            return Enumerable.Intersect(arrA,arrB);
         }
 
         public static IEnumerable<int> GetArrayNotIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
             // return an array that contains all the values that are in array A or array B but not in both array A and array B
             // TODO
-            return null;
+            return arrA.Except(arrB).Union(arrB.Except(arrA)); 
         }
 
-        public static Boolean HasSum(IEnumerable<int> arr, long target)
+        public static Boolean? HasSum(IEnumerable<int> arr, long target)
         {
             // return true if any 2 values in the array have a sum equal to the target value
             // TODO
-            return false;
+            
+            bool? isNull = null;
+
+            if (arr == null)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                int[] intArray = new int[(arr.Count())];
+
+                intArray = arr.ToArray();
+
+                for (int outerIndex = 0; outerIndex <= arr.Count() - 1; outerIndex++)
+                {
+                    for (int innerIndex = outerIndex + 1; innerIndex <= arr.Count() - 1; innerIndex++)
+                    {
+                        if (intArray[outerIndex] + intArray[innerIndex] == target)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
         }
 
         public static long LoneSum(IEnumerable<int> arr)
         {
             // Given an array of int values, return their sum. 
             // However, if any of the values is the same as another of the values, it does not count towards the sum.
-            return 0;
+
+            //IEnumerable<int> newArrayToExclude = new IEnumerable<int>[(arr.Count())];
+            //int excludeIndex = 0;
+
+            //intArray = arr.Distinct().ToArray();
+
+            //for (int outerIndex = 0; outerIndex <= arr.Count() - 1; outerIndex++)
+            //{
+            //    for (int innerIndex = outerIndex + 1; innerIndex <= arr.Count() - 1; innerIndex++)
+            //    {
+            //        if (arr.ElementAt(outerIndex) == arr.ElementAt(innerIndex))
+            //        {
+            //            newArrayToExclude[excludeIndex] = intArray[outerIndex];
+            //            excludeIndex++; 
+            //        }
+            //    }
+            //}
+
+            //arr = GetArrayNotIntersect(intArray, newArrayToExclude);
+
+            //return arr.Sum();
+            
         }
 
         public static String DoubleString(String s)
