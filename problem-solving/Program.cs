@@ -17,13 +17,30 @@ namespace problem_solving
         {
             // return the sum of all the values in the array
             // TODO
-            return 0;
+            int value = 0;
+            long sum = 0;
+            for (int i = 0; i < arr.Count(); i++)
+            {
+                value = arr.ElementAt(i);
+                sum = sum + value;
+
+            }
+
+                return sum;
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
         {
             // return the sum of all the values in the array that are odd
             // TODO
+            int value = 0;
+            long sum = 0;
+            for (int i = 0; i < arr.Count(); i++)
+            {
+                value = arr.ElementAt(i);
+                sum = sum + value;
+
+            }
             return 0;
         }
 
