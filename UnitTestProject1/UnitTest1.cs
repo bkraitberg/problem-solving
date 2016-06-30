@@ -62,9 +62,9 @@ namespace UnitTestProject1
         [TestCase(null, null, ExpectedException = typeof(ArgumentNullException))]
         [TestCase(new int[] { Int32.MaxValue }, new int[] { Int32.MaxValue })]
         [TestCase(new int[] { Int32.MinValue, Int32.MinValue, Int32.MinValue }, new int[] { Int32.MinValue })]
-        public void Test_GetUniqueValues(int[] arr, int[] result)
+        public void Test_GetDistinctValues(int[] arr, int[] result)
         {
-            Assert.AreEqual(result, Program.GetUniqueValues(arr));
+            Assert.AreEqual(result, Program.GetDistinctValues(arr));
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace UnitTestProject1
         [TestCase(new int[] { 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 }, 4, true)]
         [TestCase(new int[] { 0 }, 0, false)]
         [TestCase(new int[] { }, 1, false)]
-        [TestCase(null, null, null, ExpectedException = typeof(NullReferenceException))]
+        [TestCase(null, null, null, ExpectedException = typeof(ArgumentNullException))]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 6, true)]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 7, true)]
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 8, true)]
@@ -207,7 +207,7 @@ namespace UnitTestProject1
         [TestCase("abcd", "efgh", false)]
         [TestCase("abcd", "", false)]
         [TestCase("\n", "n\\", false)]
-        [TestCase(null, null, true, ExpectedException = typeof(NullReferenceException))]
+        [TestCase(null, null, true, ExpectedException = typeof(ArgumentNullException))]
         [TestCase("☺☺☺☺", "☺☺☺☺", true)]
         [TestCase("☺☺☺☺", "☺☺☺☺☺☺☺☺", false)]
         [TestCase("\x0031\x0032\x0033\x0034", "4321", true)]
