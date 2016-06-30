@@ -1,155 +1,345 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace problem_solving
+﻿namespace problem_solving
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     public class Program
     {
+        public static int Vector { get; private set; }
+
         static void Main(string[] args)
         {
         }
 
         public static long SumArray(IEnumerable<int> arr)
         {
-            // return the sum of all the values in the array
-            // TODO
-            return 0;
+            if (arr == null) throw new ArgumentNullException("arr");
+            
+            long result = 0;
+            foreach (int i in arr)
+            {
+                result += i;
+            }
+
+            return result;
+
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
         {
-            // return the sum of all the values in the array that are odd
-            // TODO
-            return 0;
+            if (arr == null) throw new ArgumentNullException("arr");
+
+            long result = 0;
+            foreach (int i in arr)
+            {
+                if (Math.Abs(i % 2) == 1)
+                {
+                    result += i;
+                }
+            }
+
+            return result;
         }
 
         public static long SumArrayEverySecondValue(IEnumerable<int> arr)
         {
-            // return the sum of every second value in the array. i.e. the 2nd value + the 4th value + the 6th value ...
-            // TODO
-            return 0;
+            if (arr == null) throw new ArgumentNullException("arr");
+
+            long result = 0;
+            IEnumerator<int> enumerator = arr.GetEnumerator();
+            
+            while (enumerator.MoveNext() && enumerator.MoveNext())
+            {
+                result += enumerator.Current;
+            }
+
+            return result;
         }
 
         public static IEnumerable<int> GetUniqueValues(IEnumerable<int> arr)
         {
-            // return an array that contains only unique values from the passed in array
-            // TODO
-            return null;
+            if (arr == null) throw new ArgumentNullException("arr");
+            Dictionary<int, bool> values = GetDictionaryForArray(arr);
+
+            return values.Keys;
+        }
+
+        private static Dictionary<int, bool> GetDictionaryForArray(IEnumerable<int> arr)
+        {
+            Dictionary<int, bool> values = new Dictionary<int, bool>();
+
+            foreach (int i in arr)
+            {
+                values[i] = true;
+            }
+
+            return values;
         }
 
         public static IEnumerable<int> GetArrayIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
-            // return an array that contains all the values that are in array A and array B
-            // TODO
-            return null;
+            if (arrA == null) throw new ArgumentNullException("arrA");
+            if (arrB == null) throw new ArgumentNullException("arrB");
+
+            return arrA.Intersect(arrB).ToArray();
         }
 
         public static IEnumerable<int> GetArrayNotIntersect(IEnumerable<int> arrA, IEnumerable<int> arrB)
         {
-            // return an array that contains all the values that are in array A or array B but not in both array A and array B
-            // TODO
-            return null;
+            if (arrA == null) throw new ArgumentNullException("arrA");
+            if (arrB == null) throw new ArgumentNullException("arrB");
+
+            Dictionary<int, bool> values = new Dictionary<int, bool>();
+
+            foreach (int i in arrA)
+            {
+                values[i] = true;
+            }
+
+            foreach (int i in arrB)
+            {
+                if (!values.ContainsKey(i))
+                    values[i] = true;
+                else
+                    values[i] = false;
+            }
+
+            return values.Keys.Where(key=>values[key]);
         }
 
         public static Boolean HasSum(IEnumerable<int> arr, long target)
         {
-            // return true if any 2 values in the array have a sum equal to the target value
-            // TODO
+            if (arr == null) throw new NullReferenceException("arr");
+            if (arr.Count() == 1) return false;
+            
+            return HasSumMethod1_BigONSquared(arr, target);
+        }
+
+        private static bool HasSumMethod1_BigONSquared(IEnumerable<int> arr, long target)
+        {
+            int ix = 0;
+            foreach (int i in arr)
+            {
+                int jx = 0;
+                foreach (int j in arr)
+                {
+                    if ((ix != jx) && (i + j == target))
+                    {
+                        return true;
+                    }
+
+                    ++jx;
+                }
+
+                ++ix;
+            }
+
             return false;
         }
 
         public static long LoneSum(IEnumerable<int> arr)
         {
-            // Given an array of int values, return their sum. 
-            // However, if any of the values is the same as another of the values, it does not count towards the sum.
-            return 0;
+            if (arr == null) throw new ArgumentNullException("arr");
+
+            Dictionary<int, bool> nonDuplicateValues = new Dictionary<int, bool>();
+
+            foreach (int i in arr)
+            {
+                if (!nonDuplicateValues.ContainsKey(i))
+                {
+                    nonDuplicateValues[i] = true;
+                }
+                else
+                {
+                    nonDuplicateValues[i] = false;
+                }
+            }
+
+            return nonDuplicateValues.Keys.Where(key=>nonDuplicateValues[key]).Sum();
         }
 
         public static String DoubleString(String s)
         {
-            // return a string that is the original string with each character in the string repeated twice
-            // e.g. for input "ABCDE", return "AABBCCDDEE"
-            return null;
+            if (s == null) throw new ArgumentNullException("s");
+
+            StringBuilder sb = new StringBuilder(s.Length * 2);
+
+            foreach (char c in s)
+            {
+                sb.Append(c);
+                sb.Append(c);
+            }
+
+            return sb.ToString();
         }
 
         public static int CountChars(String s, char c)
         {
-            // return the count of how many times char c occurs in string s
-            return 0;
+            if (s == null) throw new ArgumentNullException("s");
+
+            int result = 0;
+
+            foreach (char sc in s)
+            {
+                if (sc == c)
+                    result++;
+            }
+
+            return result;
         }
 
         public static long SumDigits(String s)
         {
-            // return the sum of the digits 0-9 that appear in the string, ignoring all other characters
-            // e.g. "123" return 6
-            return 0;
+            if (s == null) throw new ArgumentNullException("s");
+
+            int result = 0;
+
+            foreach (char c in s)
+            {
+                byte digit;
+                if (byte.TryParse(c.ToString(), out digit))
+                    result += digit;
+            }
+
+            return result;
         }
 
         public static long SumNumbers(String s)
         {
-            // return the sum of the numbers that appear in the string, ignoring all other characters
-            // a number is a series of 1 or more digits in a row
-            // e.g. "11 22" returns 33
-            return 0;
+            if (s == null) throw new ArgumentNullException("s");
+            
+            long result = 0;
+            long? currentNumber = null;
+
+            foreach (char c in s)
+            {
+                byte currentDigit;
+
+                if (byte.TryParse(c.ToString(), out currentDigit))
+                {
+                    if (currentNumber.HasValue)
+                    {
+                        currentNumber *= 10;
+                        currentNumber += currentDigit;
+                    }
+                    else
+                    {
+                        currentNumber = currentDigit;
+                    }
+                }
+                else
+                {
+                    if (currentNumber.HasValue)
+                    {
+                        result += currentNumber.Value;
+                        currentNumber = null;
+                    }
+                }
+            }
+
+
+            if (currentNumber.HasValue)
+            {
+                result += currentNumber.Value;
+                currentNumber = null;
+            }
+
+            return result;
         }
 
         public static Boolean IsAnagram(String s1, String s2)
         {
-            // return true if String s1 is an anagram of s2, otherwise return false
-            // An anagram is produced by rearranging the letters of one string into another
-            // e.g. care is an anagram of race
-            // cat is not an anagram of rat
-            return false;
+            if (s1 == null) throw new NullReferenceException("s1");
+            if (s2 == null) throw new NullReferenceException("s2");
+            
+            if (s1.Length != s2.Length)
+                return false;
+            else
+                return new string(s1.OrderBy(c => c).ToArray()) == new string(s2.OrderBy(c => c).ToArray());
         }
 
         public static int BlackJack(int count1, int count2)
         {
-            // Given 2 integer values greater than 0, 
-            // return whichever value is nearest to 21 without going over. 
-            // Return 0 if they both go over.
-            return 0;
+            return NPlayerBlackJack(new int[] { count1, count2 });
         }
 
         public static int FivePlayerBlackJack(int count1, int count2, int count3, int count4, int count5)
         {
-            // Given 5 integer values greater than 0, 
-            // return whichever value is nearest to 21 without going over. 
-            // Return 0 if they all go over.
-            return 0;
+            return NPlayerBlackJack(new int[] { count1, count2, count3, count4, count5 });
         }
 
         public static int NPlayerBlackJack(IEnumerable<int> counts)
         {
-            // Given a list of integer values greater than 0, 
-            // return whichever value is nearest to 21 without going over. 
-            // Return 0 if they all go over.
-            return 0;
+            if (counts == null) throw new ArgumentNullException("counts");
+
+            int currentlyClosest = 0;
+            foreach (int i in counts)
+            {
+                if (i <= 21)
+                {
+                    currentlyClosest = Math.Max(currentlyClosest, i);
+                }
+            }
+
+            return currentlyClosest;
         }
 
         public static Dictionary<String, int> WordCount(IEnumerable<String> arr)
         {
-            // Given an array of Strings, 
-            // return a dictionary keyed on the string with the count of how many times each string appears in the array
-            return null;
+            if (arr == null) throw new NullReferenceException("arr");
+
+            Dictionary<String, int> dictionary = new Dictionary<string, int>();
+            foreach (string word in arr)
+            {
+                if (!dictionary.ContainsKey(word))
+                    dictionary[word] = 1;
+                else
+                    dictionary[word] += 1;
+            }
+
+            return dictionary;
         }
 
         public static int Factorial(int n)
         {
-            // Given n, return the factorial of n, which is n * (n-1) * (n-2) ... 1
-            return 0;
+            if (n == 0)
+                return 1;
+            else
+                return n * Factorial(n - 1);
+        }
+
+        private static bool IsDivisibleBy3(int n)
+        {
+            return n % 3 == 0;
+        }
+
+        private static bool IsDivisibleBy5(int n)
+        {
+            return n % 5 == 0;
         }
 
         public static List<String> FB(int n)
         {
-            // Given n, print the numbers from 1 to n as a string to a List of strings, with the following exceptions:
-            // If the number is divisable by 3, replace it with the word "Fizz"
-            // If the number is divisable by 5, replace it with the word "Buzz"
-            // If the number is divisable by both 3 and 5, replace it with the word "FizzBuzz"
-            return null;
+            List<String> results = new List<string>(n);
+
+            for (int i = 1; i <= n; ++i)
+            {
+                bool isMultipleOf3 = IsDivisibleBy3(i);
+                bool isMultipleOf5 = IsDivisibleBy5(i);
+
+                if (isMultipleOf3 && isMultipleOf5)
+                    results.Add("FizzBuzz");
+                else if (isMultipleOf3)
+                    results.Add("Fizz");
+                else if (isMultipleOf5)
+                    results.Add("Buzz");
+                else
+                    results.Add(i.ToString());
+            }
+
+            return results;
         }
     }
 }
