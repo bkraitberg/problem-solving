@@ -75,7 +75,7 @@ namespace UnitTestProject1
         [TestCase(new int[] { }, new int[] { }, new int[] { })]
         [TestCase(null, null, null, ExpectedException = typeof(ArgumentNullException))]
         [TestCase(new int[] { 1, 2 }, new int[] { 3, 4 }, new int[] { })]
-        public void Test_IntersectArrays(int[] arrA, int[] arrB, int[] result)
+        public void Test_GetArrayIntersect(int[] arrA, int[] arrB, int[] result)
         {
             Assert.AreEqual(result, Program.GetArrayIntersect(arrA, arrB));
         }
