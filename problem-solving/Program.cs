@@ -20,7 +20,6 @@ namespace problem_solving
         {
             // return the sum of all the values in the array
             return arr.Sum(a => Convert.ToInt64(a, CultureInfo.InvariantCulture));
-            //return arr.Sum();
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
