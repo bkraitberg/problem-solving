@@ -17,6 +17,7 @@ namespace problem_solving
         {
             // return the sum of all the values in the array
             return arr.Sum(a => (long)a);
+            //return arr.Sum(a => Convert.ToInt64(a));
         }
 
         public static long SumArrayOddValues(IEnumerable<int> arr)
