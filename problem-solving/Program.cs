@@ -187,6 +187,11 @@ namespace problem_solving
                         Value = g.Count()
                     };
             return x.ToDictionary(d => d.Key, d => d.Value );
+
+            //return arr
+            //    .GroupBy(word => word)
+            //    .Select(g => new { Key = g.Key, Value = g.Count() })
+            //    .ToDictionary(d => d.Key, d => d.Value);
         }
 
         public static int Factorial(int n)
